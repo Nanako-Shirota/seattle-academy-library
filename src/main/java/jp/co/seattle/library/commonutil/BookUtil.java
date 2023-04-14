@@ -8,6 +8,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import jp.co.seattle.library.dto.BookDetailsInfo;
 
@@ -29,14 +30,19 @@ public class BookUtil {
 		//TODO　各チェックNGの場合はエラーメッセージをリストに追加（タスク４）
 		List<String> errorList = new ArrayList<>();
 		// 必須チェック
-
+		if(isEmptyBookInfo(bookInfo)) {
+			errorList.add(REQUIRED_ERROR);
+		}
 		
 		// ISBNのバリデーションチェック
-
+		if(!(isValidIsbn (bookInfo.getIsbn()))) {
+			errorList.add(ISBN_ERROR);
+		}
 
 		// 出版日の形式チェック
-
-
+		if(!(checkDate(bookInfo.getPublishDate()))) {
+			errorList.add(PUBLISHDATE_ERROR);
+		}
 		return errorList;
 	}
 
@@ -51,7 +57,7 @@ public class BookUtil {
 			DateFormat formatter = new SimpleDateFormat("yyyyMMdd");
 			formatter.setLenient(false); // ←これで厳密にチェックしてくれるようになる
 			//TODO　取得した日付の形式が正しければtrue（タスク４）
-			
+			formatter.parse(publishDate);
 			return true;
 		} catch (Exception p) {
 			p.printStackTrace();
@@ -67,8 +73,16 @@ public class BookUtil {
 	 */
 	private static boolean isValidIsbn(String isbn) {
 		//TODO　ISBNが半角数字で10文字か13文字であればtrue（タスク４）
+		if(isbn.length() >0) {
+			if((isbn.length() == 10 || isbn.length () ==13) &&isbn.matches("^[0-9]+$")){
+				return true;
+			}else {
+				return false;
+			}
+		}else {
+			return true;
+		}
 		
-		return true;
 	}
 
 	/**
@@ -79,7 +93,10 @@ public class BookUtil {
 	 */
 	private static boolean isEmptyBookInfo(BookDetailsInfo bookInfo) {
 		//TODO　タイトル、著者、出版社、出版日のどれか一つでもなかったらtrue（タスク４）
-		
-		return true;
+		if(StringUtils .isEmpty(bookInfo.getTitle()) || StringUtils.isEmpty(bookInfo.getAuthor()) || StringUtils.isEmpty(bookInfo.getPublisher()) || StringUtils.isEmpty(bookInfo.getPublishDate())){
+			return true;
+		}else {
+			return false;
+		}
 	}
 }
