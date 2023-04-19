@@ -61,7 +61,6 @@ public class BookUtil {
 			Date date2 = formatter.parse(publishDate);
 			String date3 = formatter.format(date2);
 			return publishDate.equals(date3);
-			/**↑修正点*/
 		} catch (Exception p) {
 			p.printStackTrace();
 			return false;
