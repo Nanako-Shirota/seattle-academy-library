@@ -76,7 +76,7 @@ public class BooksService {
 	 */
 	public void deleteBook(int bookId) {
 		// TODO 対象の書籍を削除するようにSQLを修正（タスク6）
-		String sql = "";
+		String sql = "DELETE FROM books WHERE books.id = ?;";
 		jdbcTemplate.update(sql, bookId);
 	}
 
@@ -89,12 +89,12 @@ public class BooksService {
 		String sql;
 		if (bookInfo.getThumbnailUrl() == null) {
 			// TODO 取得した書籍情報を更新するようにSQLを修正（タスク５）
-			sql = "";
+			sql = "UPDATE books set title=?,author=?,publisher=?,publish_date=?,isbn=?,description=?,upd_date=now() WHERE books.id=?;";
 			jdbcTemplate.update(sql, bookInfo.getTitle(), bookInfo.getAuthor(), bookInfo.getPublisher(),
 					bookInfo.getPublishDate(), bookInfo.getIsbn(), bookInfo.getDescription(), bookInfo.getBookId());
 		} else {
 			// TODO 取得した書籍情報を更新するようにSQLを修正（タスク５）
-			sql = "";
+			sql = "UPDATE books set title=?,author=?,pubulisher=?,publish_date=?,thumbnai_name=?,thumbnail_url=?,isbn=?,description=?,upd_date=now() WHERE books.id=?;";
 			jdbcTemplate.update(sql, bookInfo.getTitle(), bookInfo.getAuthor(), bookInfo.getPublisher(),
 					bookInfo.getPublishDate(), bookInfo.getThumbnailName(), bookInfo.getThumbnailUrl(),
 					bookInfo.getIsbn(), bookInfo.getDescription(), bookInfo.getBookId());
