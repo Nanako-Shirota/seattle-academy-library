@@ -1,7 +1,6 @@
 package jp.co.seattle.library.controller;
 
 import java.util.List;
-import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +34,7 @@ public class HomeController {
 		//書籍の一覧情報を取得（タスク３）
 		List<BookInfo> getedbookList = booksService.getBookList();
 		
-		if(Objects.isNull(getedbookList)) {
+		if(getedbookList.isEmpty()) {
 			model.addAttribute("resultMessage", "書籍データがありません");
 		}else {
 			model.addAttribute("bookList",getedbookList);
