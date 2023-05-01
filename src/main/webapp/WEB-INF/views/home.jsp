@@ -18,6 +18,14 @@
             <div class="logo">Seattle Library</div>
         </div>
         <div class="right">
+            <div class="search1">
+                <form class="search_form" method="GET" action="<%=request.getContextPath()%>/search1">
+                    <input type="text" name="query" placeholder="検索" class="search_input">
+                    <button type="submit" class="search_button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+            </div>
             <ul>
                 <li><a href="<%=request.getContextPath()%>/home" class="menu">Home</a></li>
                 <li><a href="<%=request.getContextPath()%>/">ログアウト</a></li>
