@@ -38,6 +38,15 @@ public class BooksService {
 
 		return getedBookList;
 	}
+	public List<BookInfo> getSearchBook(String search) {
+
+		// TODO 書籍名の昇順で書籍情報を取得するようにSQLを修正（タスク３）
+		List<BookInfo> getedBookList = jdbcTemplate.query(
+				"SELECT * FROM books where title like concat('%',?,'%') order by title asc;",
+				new BookInfoRowMapper(),search);
+
+		return getedBookList;
+	}
 
 	/**
 	 * 書籍IDに紐づく書籍詳細情報を取得する
